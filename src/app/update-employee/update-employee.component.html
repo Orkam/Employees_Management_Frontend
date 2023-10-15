@@ -1,35 +1,91 @@
-<div class="col-md-6 offset-med-3">
-    <h3 class="text-center">Employee Registration</h3>
-  
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Name: </label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          [(ngModel)]="employee.name"
-          name="name"
-        />
-        <label for="lastName">Last Name: </label>
-        <input
-          type="text"
-          class="form-control"
-          id="lastName"
-          [(ngModel)]="employee.last_Name"
-          name="last_name"
-        />
-  
-        <label for="email">Email: </label>
-        <input
-          type="text"
-          class="form-control"
-          id="email"
-          [(ngModel)]="employee.email"
-          name="email"
-        />
+<div class="col-md-15 offset-med-3">
+  <h3 class="text-center" style="margin-top: 10px">Update Employee</h3>
+
+  <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        [(ngModel)]="employee.name"
+        name="name"
+        required
+        minlength="4"
+        maxlength="10"
+        #name="ngModel"
+      />
+
+      <div
+        class="alert alert-danger"
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+      >
+        <div *ngIf="name.errors?.['required']">Enter a name!.</div>
+
+        <div *ngIf="name.errors?.['minlength']">
+          Enter at least 4 characters
+        </div>
+
+        <div *ngIf="name.errors?.['maxlength']">
+          Enter maximun 10 characters.
+        </div>
       </div>
-      <button  class="btn btn-success">Update</button>
-    </form>
-  </div>
-  
+    </div>
+
+    <div class="form-group">
+      <label for="last_Name">Last Name: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="last_Name"
+        [(ngModel)]="employee.last_Name"
+        name="last_name"
+        required
+        minlength="4"
+        maxlength="10"
+        #last_Name="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="last_Name.invalid && (last_Name.dirty || last_Name.touched)"
+      >
+        <div *ngIf="last_Name.errors?.['required']">Enter a surname!.</div>
+
+        <div *ngIf="last_Name.errors?.['minlength']">
+          Enter at least 4 characters
+        </div>
+
+        <div *ngIf="last_Name.errors?.['maxlength']">
+          Enter maximun 10 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        [(ngModel)]="employee.email"
+        name="email"
+        pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+        required
+        minlength="4"
+        maxlength="20"
+        #email="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+      >
+        <div *ngIf="email.errors?.['required']">Enter a email!.</div>
+
+        <div *ngIf="email.errors?.['pattern']">e.i user@g.com</div>
+      </div>
+    </div>
+    <button class="btn btn-success" [disabled]="!employeeForm.form.valid">
+      Update
+    </button>
+  </form>
+</div>

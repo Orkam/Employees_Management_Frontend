@@ -33,6 +33,8 @@ export class UpdateEmployeeComponent implements OnInit {
 
   onSubmit(){
     this.employeeService.updateEmployee(this.id,this.employee).subscribe(dato => {
+
+      this.router.navigate(['/employees']);
       
     },error => console.log(error));
   }
